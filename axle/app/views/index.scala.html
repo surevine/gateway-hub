@@ -1,0 +1,31 @@
+@(message: String, projects: List[Project])
+
+@main(message) {
+<div class="row">
+    <div class="col-md-8">
+        <h2>Projects &amp; Repositories</h2>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-lg btn-primary pull-right">Add Private Project</button>
+    </div>
+</div>
+<div class="list-group">
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2"><strong>Commits</strong>
+            </div>
+            <div class="col-md-2"><strong>Pull Requests</strong>
+            </div>
+            <div class="col-md-2"><strong>Contributors</strong>
+            </div>
+        </div>
+    </div>
+  @for(project <- projects) {
+    @projectlist(project)
+  }
+</div>
+</div>
+
+}
