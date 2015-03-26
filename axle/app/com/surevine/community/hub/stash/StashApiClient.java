@@ -36,7 +36,7 @@ public class StashApiClient {
 			while(it.hasNext()) {
 				LocalRepoBean repoBean = it.next();
 				Repository repository = new Repository();
-				repository.repository = repoBean.getSlug();
+				repository.repository = repoBean.getProjectKey() + "/" + repoBean.getSlug();
 				repositories.add(repository);
 			}
 		}
@@ -59,7 +59,7 @@ public class StashApiClient {
 		Repository repository = new Repository();
 
 		if(repoBean != null) {
-			repository.repository = repoBean.getSlug();
+			repository.repository = repoBean.getProjectKey() + "/" + repoBean.getSlug();
 		}
 
 		return repository;
