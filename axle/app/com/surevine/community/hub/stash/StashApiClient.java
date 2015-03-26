@@ -17,7 +17,7 @@ public class StashApiClient {
 
 	public static final String API_BASE_URL = ConfigFactory.load().getString("stash.api.base.url");
 
-	public List<Repository> loadRepositoriesForProject(String projectName) {
+	public static List<Repository> loadRepositoriesForProject(String projectName) {
 
 		GetRepoCommand getRepoCommand = new StashCommandFactory().getGetRepoCommandImpl();
 

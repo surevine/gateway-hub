@@ -10,13 +10,20 @@ import models.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.surevine.community.hub.stash.StashApiClient;
 import com.typesafe.config.ConfigFactory;
 
 public class Application extends Controller {
 
     public static Result index() {
 
-    	String[] sharedRepoGroups = ConfigFactory.load().getString("shared.repo.groups").split(",");
+    	String[] sharedRepoProjects = ConfigFactory.load().getString("shared.repo.groups").split(",");
+
+    	for(String sharedRepoProject : sharedRepoProjects) {
+    		List<Repository> repositories = StashApiClient.loadRepositoriesForProject(sharedRepoProject);
+
+    		// TODO load more info for each repo
+    	}
 
 
 
