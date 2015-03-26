@@ -10,12 +10,19 @@ import models.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.typesafe.config.ConfigFactory;
+
 public class Application extends Controller {
 
     public static Result index() {
-        List<Project> l = new ArrayList<Project>();
+
+    	String[] sharedRepoGroups = ConfigFactory.load().getString("shared.repo.groups").split(",");
+
+
+
+        List<Repository> l = new ArrayList<Repository>();
         {
-          Project p = new Project();
+          Repository p = new Repository();
           p.id = "my-great-project";
           p.repository = "~smith/my-great-project";
           p.lead = "Steve Smith";
@@ -26,7 +33,7 @@ public class Application extends Controller {
           l.add(p);
         }
         {
-          Project p = new Project();
+          Repository p = new Repository();
           p.id = "bootstrap";
           p.repository = "~smith/bootstrap";
           p.lead = "Bob Jones";
@@ -37,7 +44,7 @@ public class Application extends Controller {
           l.add(p);
         }
         {
-          Project p = new Project();
+          Repository p = new Repository();
           p.id = "my-great-project2";
           p.repository = "~smith/my-great-project";
           p.lead = "Steve Smith";
@@ -48,7 +55,7 @@ public class Application extends Controller {
           l.add(p);
         }
         {
-          Project p = new Project();
+          Repository p = new Repository();
           p.id = "my-great-project3";
           p.repository = "~smith/my-great-project";
           p.lead = "Steve Smith";

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Project extends Model {
+public class Repository extends Model {
     @Id
     public String id;
 
