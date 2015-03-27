@@ -1,78 +1,73 @@
 package controllers;
 
-import play.*;
-import play.mvc.*;
-
-import views.html.*;
-
-import models.*;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import models.Repository;
+
+import org.springframework.web.client.RestTemplate;
+
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.index;
 
 import com.surevine.community.hub.stash.StashApiClient;
 import com.typesafe.config.ConfigFactory;
 
 public class Application extends Controller {
 
-    public static Result index() {
+	private static String metastatsBaseURL = null;
 
-    	String[] sharedRepoProjects = ConfigFactory.load().getString("shared.repo.groups").split(",");
+	public static Result index() {
 
-    	for(String sharedRepoProject : sharedRepoProjects) {
-    		List<Repository> repositories = StashApiClient.loadRepositoriesForProject(sharedRepoProject);
+		String[] sharedRepoProjects = ConfigFactory.load()
+				.getString("shared.repo.groups").split(",");
+		metastatsBaseURL = ConfigFactory.load().getString("metastats.base.url");
 
-    		// TODO load more info for each repo
-    	}
+		List<Repository> repositories = null;
+		for (String sharedRepoProject : sharedRepoProjects) {
+			repositories = StashApiClient
+					.loadRepositoriesForProject(sharedRepoProject);
 
+			// Tell metastats how to init each of the repositories
+			for (Repository repo : repositories) {
 
+				initialiseMetastatsRepository(repo.getCloneURL());
 
-        List<Repository> l = new ArrayList<Repository>();
-        {
-          Repository p = new Repository();
-          p.id = "my-great-project";
-          p.repository = "~smith/my-great-project";
-          p.lead = "Steve Smith";
-          p.commits = 3;
-          p.pull_requests = 4;
-          p.contributors = 5;
-          p.state = "Prototype";
-          l.add(p);
-        }
-        {
-          Repository p = new Repository();
-          p.id = "bootstrap";
-          p.repository = "~smith/bootstrap";
-          p.lead = "Bob Jones";
-          p.commits = 395;
-          p.pull_requests = 8;
-          p.contributors = 17;
-          p.state = "Stable";
-          l.add(p);
-        }
-        {
-          Repository p = new Repository();
-          p.id = "my-great-project2";
-          p.repository = "~smith/my-great-project";
-          p.lead = "Steve Smith";
-          p.commits = 3;
-          p.pull_requests = 4;
-          p.contributors = 5;
-          p.state = "Stable";
-          l.add(p);
-        }
-        {
-          Repository p = new Repository();
-          p.id = "my-great-project3";
-          p.repository = "~smith/my-great-project";
-          p.lead = "Steve Smith";
-          p.commits = 3;
-          p.pull_requests = 4;
-          p.contributors = 5;
-          p.state = "Stable";
-          l.add(p);
-        }
-        return ok(index.render("Your new application is ready.", l));
-    }
+				com.surevine.community.hub.metastats.Repository metastatsRepo = getMetastatsRepository(metastatsBaseURL
+						+ "/" + "api/projects/" + repo.getRepository());
+
+				repo.setLead(metastatsRepo.getLeadContributor());
+
+				repo.setCommits(metastatsRepo.getNumCommits());
+				
+				repo.setContributors(metastatsRepo.getNumContributors());
+
+				// TODO sort last commit
+				
+				// TODO sort pull requests
+				
+			}
+
+		}
+
+		return ok(index.render("Your new application is ready.", repositories));
+	}
+
+	public static void initialiseMetastatsRepository(String repoStr) {
+		String initURL = metastatsBaseURL + "/" + "api/init/add";
+		RestTemplate restTemplate = new RestTemplate();
+		Map<String, String> urlVars = new HashMap<String, String>();
+		urlVars.put("url", repoStr);
+		restTemplate.postForLocation(initURL, null, urlVars);
+	}
+
+	public static com.surevine.community.hub.metastats.Repository getMetastatsRepository(
+			String repoStr) {
+		RestTemplate restTemplate = new RestTemplate();
+		return restTemplate.getForObject(repoStr,
+				com.surevine.community.hub.metastats.Repository.class);
+	}
 
 }

@@ -36,35 +36,13 @@ public class StashApiClient {
 			while(it.hasNext()) {
 				LocalRepoBean repoBean = it.next();
 				Repository repository = new Repository();
-				repository.repository = repoBean.getProjectKey() + "/" + repoBean.getSlug();
+				repository.setRepository(repoBean.getProjectKey() + "/" + repoBean.getSlug());
+				repository.setCloneURL(repoBean.getCloneSourceURI());
 				repositories.add(repository);
 			}
 		}
 
 		return repositories;
 	}
-
-	public Repository getRepository(String projectName, String repoName) {
-
-		GetRepoCommand getRepoCommand = new StashCommandFactory().getGetRepoCommandImpl();
-
-		LocalRepoBean repoBean = null;
-		try {
-			repoBean = getRepoCommand.getRepository(projectName, repoName);
-		} catch (SCMCallException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Repository repository = new Repository();
-
-		if(repoBean != null) {
-			repository.repository = repoBean.getProjectKey() + "/" + repoBean.getSlug();
-		}
-
-		return repository;
-	}
-
-
 
 }

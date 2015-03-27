@@ -1,34 +1,35 @@
-@(project: Project)
+@(repo: Repository)
 
-<div class="list-group-item hub-project" id="project@project.id">
-    <div class="row hub-project-summary">
+<div class="list-group-item hub-repo" id="repo@repo.id">
+
+    <div class="row hub-repo-summary">
         <div class="col-md-4">
-            <h4 class="list-group-item-heading">@project.repository</h4>
-            <p class="list-group-item-text"><strong>Lead: </strong>@project.lead</p>
-            <p class="list-group-item-text"><strong>Last Commit: </strong>@project.commit_age days ago</p>
+            <h4 class="list-group-item-heading">@repo.getRepository()</h4>
+            <p class="list-group-item-text"><strong>Lead: </strong>@repo.getLead()</p>
+            <p class="list-group-item-text"><strong>Last Commit: </strong>@repo.getCommitAge() days ago</p>
         </div>
-        <div class="col-md-2"><span class="badge">@project.state</span>
+        <div class="col-md-2"><span class="badge">@repo.getState()</span>
         </div>
         <div class="col-md-2">
-            <p><strong>@project.commits</strong>
+            <p><strong>@repo.getCommits()</strong>
             </p>
         </div>
         <div class="col-md-2">
-            <p><strong>@project.pull_requests</strong>
+            <p><strong>@repo.getPullRequests()</strong>
             </p>
         </div>
         <div class="col-md-2">
-            <p><strong>@project.contributors</strong>
+            <p><strong>@repo.getContributors()</strong>
             </p>
         </div>
     </div>
-    <div class="row hub-project-detail">
+    <div class="row hub-repo-detail">
         <div class="col-md-4">
             <img src="@routes.Assets.at("images/donut-chart.png")" class="img-responsive" />
             <img src="@routes.Assets.at("images/bar-chart.png")" class="img-responsive" />
             <img src="@routes.Assets.at("images/weekly-chart.png")" class="img-responsive" />
         </div>
-        <div class="col-md-8 hub-project-readme">
+        <div class="col-md-8 hub-repo-readme">
             <p class="list-group-item-text">
                 <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development, created by <a href="https://twitter.com/mdo">Mark Otto</a> and <a href="https://twitter.com/fat">Jacob Thornton</a>, and maintained by the <a href="https://github.com/orgs/twbs/people">core team</a> with the massive support and involvement of the community.</p>
 

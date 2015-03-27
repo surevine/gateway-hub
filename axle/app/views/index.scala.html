@@ -1,4 +1,4 @@
-@(message: String, projects: List[Project])
+@(message: String, repos: List[Repository])
 
 @main(message) {
 <div class="row">
@@ -22,8 +22,8 @@
             </div>
         </div>
     </div>
-  @for(project <- projects) {
-    @projectlist(project)
+  @for(repo <- repos) {
+    @repolist(repo)
   }
 </div>
 </div>
