@@ -2,6 +2,8 @@ package com.surevine.community.hub.metastats;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -15,6 +17,8 @@ public class Repository {
 
 	private int linesOfCode;
 	private int numCommits;
+	
+	private Map<String,Integer> languages = new HashMap<String,Integer>();
 
 	private List<TopContributor> topContributors = new ArrayList<TopContributor>();
 
@@ -101,6 +105,14 @@ public class Repository {
 
 	public void setReadme(String readme) {
 		this.readme = readme;
+	}
+	
+	public Map<String,Integer> getLanguages() {
+		return languages;
+	}
+	
+	public void setLanguages(final Map<String,Integer> languages) {
+		this.languages = languages;
 	}
 
 	@JsonIgnoreProperties(ignoreUnknown = true)

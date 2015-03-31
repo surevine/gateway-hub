@@ -1,6 +1,8 @@
+@import play.api.libs.json.Json
+
 @(repo: Repository)
 
-<div class="list-group-item hub-repo" id="repo@repo.id">
+<div class="list-group-item hub-repo" id="repo-@repo.getId()">
 
     <div class="row hub-repo-summary">
         <div class="col-md-4">
@@ -22,11 +24,9 @@
             </p>
         </div>
     </div>
-    <div class="row hub-repo-detail">
+    <div class="row hub-repo-detail" id="repodetail-@repo.getId()" style="display: none">
         <div class="col-md-4">
-            <img src="@routes.Assets.at("images/donut-chart.png")" class="img-responsive" />
-            <img src="@routes.Assets.at("images/bar-chart.png")" class="img-responsive" />
-            <img src="@routes.Assets.at("images/weekly-chart.png")" class="img-responsive" />
+            <div id="languages-@repo.getId()" class="languageGraph metastats"></div>
         </div>
         <div class="col-md-8 hub-repo-readme">
             @Html(repo.getReadme())
@@ -34,3 +34,19 @@
     </div>
     <div class="row"></div>
 </div>
+
+<script type="text/javascript">
+$(function() {
+	$("#repo-@repo.getId()").click(function() {
+		$("#repodetail-@repo.getId()").slideToggle();
+	});
+	
+	var languages = {
+			@for(entry <- repo.getLanguages().entrySet()) {
+				"@Html(entry.getKey())" : @entry.getValue(),
+			}
+	};
+	
+	languageGraph($("#languages-@repo.getId()"), languages);
+});
+</script>

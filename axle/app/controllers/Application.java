@@ -17,6 +17,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
 
+import play.api.libs.json.Json;
+
 public class Application extends Controller {
 
 	private static String metastatsBaseURL = ConfigFactory.load().getString("metastats.api.base.url");
@@ -29,10 +31,12 @@ public class Application extends Controller {
 		for(com.surevine.community.hub.metastats.Repository metastatsRepo : metastatsRepos) {
 
 			Repository repo = new Repository();
+			repo.setId(metastatsRepo.getName().replaceAll("[^A-Za-z0-9]", ""));
 			repo.setRepository(metastatsRepo.getName());
 			repo.setCommits(metastatsRepo.getNumCommits());
 			repo.setContributors(metastatsRepo.getNumContributors());
 			repo.setLead(metastatsRepo.getLeadContributor());
+			repo.setLanguages(metastatsRepo.getLanguages());
 
 			String processedReadme = "";
 			try {
