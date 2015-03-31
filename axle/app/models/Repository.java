@@ -7,18 +7,21 @@ import javax.persistence.Id;
 
 @Entity
 public class Repository extends Model {
-    @Id
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
     public String id;
 
 	private String lead;
     private int commitAge;
     private int commits;
-    private String readmeUri;
+    private String readme;
     private int pullRequests;
     private int contributors;
     private String cloneURL;
     private String repository;
-    
+
     public String getId() {
 		return id;
 	}
@@ -57,11 +60,11 @@ public class Repository extends Model {
 		}
 	}
 
-	public String getReadmeUri() {
-		return readmeUri;
+	public String getReadme() {
+		return readme;
 	}
-	public void setReadme_uri(String readmeUri) {
-		this.readmeUri = readmeUri;
+	public void setReadme(String readme) {
+		this.readme = readme;
 	}
 	public int getPullRequests() {
 		return pullRequests;

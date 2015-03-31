@@ -6,7 +6,6 @@
         <div class="col-md-4">
             <h4 class="list-group-item-heading">@repo.getRepository()</h4>
             <p class="list-group-item-text"><strong>Lead: </strong>@repo.getLead()</p>
-            <p class="list-group-item-text"><strong>Last Commit: </strong>@repo.getCommitAge() days ago</p>
         </div>
         <div class="col-md-2"><span class="badge">@repo.getState()</span>
         </div>
@@ -30,74 +29,7 @@
             <img src="@routes.Assets.at("images/weekly-chart.png")" class="img-responsive" />
         </div>
         <div class="col-md-8 hub-repo-readme">
-            <p class="list-group-item-text">
-                <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development, created by <a href="https://twitter.com/mdo">Mark Otto</a> and <a href="https://twitter.com/fat">Jacob Thornton</a>, and maintained by the <a href="https://github.com/orgs/twbs/people">core team</a> with the massive support and involvement of the community.</p>
-
-                <p>To get started, check out <a href="http://getbootstrap.com">http://getbootstrap.com</a>!</p>
-
-                <h2>
-    <a id="user-content-table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of contents</h2>
-
-                <ul class="task-list">
-                    <li><a href="#quick-start">Quick start</a>
-                    </li>
-                    <li><a href="#bugs-and-feature-requests">Bugs and feature requests</a>
-                    </li>
-                    <li><a href="#documentation">Documentation</a>
-                    </li>
-                    <li><a href="#contributing">Contributing</a>
-                    </li>
-                    <li><a href="#community">Community</a>
-                    </li>
-                    <li><a href="#versioning">Versioning</a>
-                    </li>
-                    <li><a href="#creators">Creators</a>
-                    </li>
-                    <li><a href="#copyright-and-license">Copyright and license</a>
-                    </li>
-                </ul>
-
-                <h2>
-    <a id="user-content-quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick start</h2>
-
-                <p>Five quick start options are available:</p>
-
-                <ul class="task-list">
-                    <li>
-                        <a href="https://github.com/twbs/bootstrap/archive/v3.3.2.zip">Download the latest release</a>.</li>
-                    <li>Clone the repo: <code>git clone https://github.com/twbs/bootstrap.git</code>.</li>
-                    <li>Install with <a href="http://bower.io">Bower</a>: <code>bower install bootstrap</code>.</li>
-                    <li>Install with <a href="https://www.npmjs.com">npm</a>: <code>npm install bootstrap</code>.</li>
-                    <li>Install with <a href="https://www.meteor.com/">Meteor</a>: <code>meteor add twbs:bootstrap</code>.</li>
-                </ul>
-
-                <p>Read the <a href="http://getbootstrap.com/getting-started/">Getting started page</a> for information on the framework contents, templates and examples, and more.</p>
-
-                <h3>
-    <a id="user-content-whats-included" class="anchor" href="#whats-included" aria-hidden="true"><span class="octicon octicon-link"></span></a>What's included</h3>
-
-                <p>Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:</p>
-
-                <pre><code>bootstrap/
-    ├── css/
-    │   ├── bootstrap.css
-    │   ├── bootstrap.css.map
-    │   ├── bootstrap.min.css
-    │   ├── bootstrap-theme.css
-    │   ├── bootstrap-theme.css.map
-    │   └── bootstrap-theme.min.css
-    ├── js/
-    │   ├── bootstrap.js
-    │   └── bootstrap.min.js
-    └── fonts/
-    ├── glyphicons-halflings-regular.eot
-    ├── glyphicons-halflings-regular.svg
-    ├── glyphicons-halflings-regular.ttf
-    ├── glyphicons-halflings-regular.woff
-    └── glyphicons-halflings-regular.woff2
-    </code></pre>
-
-                <p>We provide compiled CSS and JS (<code>bootstrap.*</code>), as well as compiled and minified CSS and JS (<code>bootstrap.min.*</code>). CSS <a href="https://developers.google.com/chrome-developer-tools/docs/css-preprocessors">source maps</a> (<code>bootstrap.*.map</code>) are available for use with certain browsers' developer tools. Fonts from Glyphicons are included, as is the optional Bootstrap theme.</p>
+            @Html(repo.getReadme())
         </div>
     </div>
     <div class="row"></div>

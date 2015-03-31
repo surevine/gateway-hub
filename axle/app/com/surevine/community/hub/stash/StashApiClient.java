@@ -1,16 +1,10 @@
 package com.surevine.community.hub.stash;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import models.Repository;
 
-import com.surevine.gateway.scm.model.LocalRepoBean;
-import com.surevine.gateway.scm.scmclient.GetRepoCommand;
-import com.surevine.gateway.scm.scmclient.SCMCallException;
-import com.surevine.gateway.scm.scmclient.stash.StashCommandFactory;
 import com.typesafe.config.ConfigFactory;
 
 public class StashApiClient {
@@ -19,28 +13,9 @@ public class StashApiClient {
 
 	public static List<Repository> loadRepositoriesForProject(String projectName) {
 
-		GetRepoCommand getRepoCommand = new StashCommandFactory().getGetRepoCommandImpl();
-
-		Collection<LocalRepoBean> repoBeans = null;
-		try {
-			repoBeans = getRepoCommand.getRepositories(projectName);
-		} catch (SCMCallException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		List<Repository> repositories = new ArrayList<Repository>();
 
-		if(repoBeans != null) {
-			Iterator<LocalRepoBean> it = repoBeans.iterator();
-			while(it.hasNext()) {
-				LocalRepoBean repoBean = it.next();
-				Repository repository = new Repository();
-				repository.setRepository(repoBean.getProjectKey() + "/" + repoBean.getSlug());
-				repository.setCloneURL(repoBean.getCloneSourceURI());
-				repositories.add(repository);
-			}
-		}
+		// TODO
 
 		return repositories;
 	}

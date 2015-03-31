@@ -18,6 +18,8 @@ public class Repository {
 
 	private List<TopContributor> topContributors = new ArrayList<TopContributor>();
 
+	private String readme;
+
 	public List<TopContributor> getTopContributors() {
 		return topContributors;
 	}
@@ -82,23 +84,32 @@ public class Repository {
 		if (!topContributors.isEmpty()) {
 			for (TopContributor contrib : topContributors) {
 				if (contrib.getNumCommits() > max) {
+					max = contrib.getNumCommits();
 					topContrib = contrib.getName();
 				}
 			}
 
 		}
-		
+
 		return topContrib;
 
+	}
+
+	public String getReadme() {
+		return readme;
+	}
+
+	public void setReadme(String readme) {
+		this.readme = readme;
 	}
 
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	static class TopContributor {
 
 		public TopContributor() {
-			
+
 		}
-		
+
 		private String name;
 		private int numCommits;
 
